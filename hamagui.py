@@ -11,7 +11,7 @@ OPTIONS = {
         },
         64: {
             "tgz": "logmein-hamachi-2.1.0.203-x64.tgz",
-        }
+        },
     },
 }
 
