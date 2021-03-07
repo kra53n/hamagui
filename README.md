@@ -1,2 +1,1 @@
-# hamagui
-Hamachi gui interface for Unix Systems
+**Hamagui** is [Hamachi](https://www.vpn.net/) gui interface for Unix Systems
