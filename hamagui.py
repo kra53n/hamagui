@@ -2,6 +2,8 @@ import requests
 import subprocess
 from os import remove
 
+from tkinter import Tk
+
 
 URL_SITE = "https://www.vpn.net/installers/"
 OPTIONS = {
@@ -33,8 +35,9 @@ class Install:
 
 
 class Gui:
-    pass
+    def __init__(self):
+        pass
 
 
 if __name__ == "__main__":
-    Install.install("linux", 64)
+    #Install.install("linux", 64)
