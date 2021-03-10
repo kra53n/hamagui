@@ -59,9 +59,9 @@ class Gui:
 
 
 if __name__ == "__main__":
-    #Install.install("linux", 64)
+    Install.install("linux", 64)
     #path = "/home/kra53n/Рабочий стол/hamagui/logmein-hamachi-2.1.0.203-x64/"
     path = "/logmein-hamachi-2.1.0.203-x64/"
-    #Commands.install_install_sh("/home/kra53n/Рабочий стол/hamagui/logmein-hamachi-2.1.0.203-x64/")
-    #Commands.init_hamachi(path)
-    Commands.kill_hamachi_process()
+    Commands.execute_install_sh("/home/kra53n/Рабочий стол/hamagui/logmein-hamachi-2.1.0.203-x64/")
+    Commands.init_hamachi(path)
+    #Commands.kill_hamachi_process()
