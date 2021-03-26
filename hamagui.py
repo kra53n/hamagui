@@ -58,7 +58,6 @@ class Install:
         subprocess.run(["tar", "--extract", "-f", dir_name])
         Install.remove_files(dir_path, getcwd())
 
-
     def install(os, bit):
         Install.download(os, bit)
         Install.extract(os, bit)
