@@ -9,8 +9,6 @@ from os import rename
 from os import rmdir
 import os.path
 
-from tkinter import Tk
-
 
 URL_SITE_DL = "https://www.vpn.net/installers/"
 OPTIONS = {
@@ -66,12 +64,7 @@ class Install:
         Install.extract(os, bit)
         remove(OPTIONS[os][bit]["tgz"])
         rmdir(OPTIONS[os][bit]["tgz"][:-4])
-
-
-class Gui:
-    def __init__(self):
-        pass
-
+        
 
 if __name__ == "__main__":
     #print(get_os_information())
