@@ -7,4 +7,4 @@
 ## COMPLETE:
 - [x] get type of os
 - [x] type of arhitecre
-- [x] choose toolkit for creating of gui --> Qt
+- [x] choose toolkit for creating of gui --> Gtk
