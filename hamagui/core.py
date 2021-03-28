@@ -76,7 +76,7 @@ class Mana:
         """
         Run install.sh script
         """
-        system("./insatll.sh")
+        system("./install.sh")
         return 1
 
     def power_on_hamachid(self):
@@ -98,8 +98,8 @@ class Mana:
 
 if __name__ == "__main__":
     #print(get_os_information())
+    Install.install("linux", 64)
     mana = Mana()
-    #Install.install("linux", 64)
     mana.run_insall_sh()
     mana.power_on_hamachid()
     #path = "/home/kra53n/Рабочий стол/hamagui/logmein-hamachi-2.1.0.203-x64/"
