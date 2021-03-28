@@ -94,16 +94,20 @@ class Mana:
         """
         system("killall", self.hamachid)
         return 1
+
+    def get_hamachi_inf(self):
+        """
+        Get information from `hamachi`
+        """
+        return subprocess.Popen(
+            ["hamachi"],
+            stdout=subprocess.PIPE,
+        ).communicate()
         
 
 if __name__ == "__main__":
-    #print(get_os_information())
-    Install.install("linux", 64)
+    #Install.install("linux", 64)
     mana = Mana()
-    mana.run_insall_sh()
-    mana.power_on_hamachid()
-    #path = "/home/kra53n/Рабочий стол/hamagui/logmein-hamachi-2.1.0.203-x64/"
-    #path = "/logmein-hamachi-2.1.0.203-x64/"
-    #Commands.execute_install_sh("/home/kra53n/Рабочий стол/hamagui/logmein-hamachi-2.1.0.203-x64/")
-    #Commands.init_hamachi(path)
-    #Commands.kill_hamachi_process()
+    #mana.run_insall_sh()
+    #mana.power_on_hamachid()
+    print(mana.get_hamachi_inf())
