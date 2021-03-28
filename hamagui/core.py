@@ -103,6 +103,13 @@ class Mana:
             ["hamachi"],
             stdout=subprocess.PIPE,
         ).communicate()
+
+    # TODO:
+    # 1) parse status - online/offline
+    # 2) parse client id - str
+    # 3) parse address - str
+    # 4) parse nickname - str
+    # 5) parse lmi account
         
 
 if __name__ == "__main__":
