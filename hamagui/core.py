@@ -159,6 +159,7 @@ class Mana:
             "client id",
             "nickname",
         )
+
         for p in parameters:
             data[p] = self.__get_from_text(inf, p)
         data["address"] = self.__return_first_part(
