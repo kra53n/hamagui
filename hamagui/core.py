@@ -123,6 +123,6 @@ if __name__ == "__main__":
     mana = Mana()
     #mana.run_insall_sh()
     #mana.power_on_hamachid()
-    #print(mana.get_hamachi_inf())
-    status = mana.get_hamachi_inf()[0][111:123]
-    print(status)
+    print(mana.get_hamachi_inf())
+    #status = mana.get_hamachi_inf()[0][111:123]
+    #print(status)
