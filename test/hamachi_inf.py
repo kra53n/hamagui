@@ -20,6 +20,7 @@ def get_from_text(text, word):
             while text[end] != "\n":
                 end += 1
             catch = text[begin+len_word:end]
+            break
         begin += 1
     # remove `:` and spaces
     catch = catch.replace(":", "")
