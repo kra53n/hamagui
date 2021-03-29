@@ -95,7 +95,7 @@ class Mana:
         system("killall", self.hamachid)
         return 1
 
-    def get_hamachi_inf(self):
+    def __get_hamachi_inf(self):
         """
         Get information from `hamachi`
         """
@@ -104,25 +104,53 @@ class Mana:
             stdout=subprocess.PIPE,
         ).communicate()
 
-    # TODO:
-    # 1) parse status - online/offline
-    # 2) parse client id - str
-    # 3) parse address - str
-    # 4) parse nickname - str
-    # 5) parse lmi account
+    def __get_from_text(self, text, word):
+        """
+        From `text` function catch word and return information
+        that situated after this word.
 
-    def hamachi_inf():
+        For example: from `status: offline` it will return offline
+        """
+        text = text.decode("utf-8")
+        len_text = len(text)
+        len_word = len(word)
+        # from what place begin reading
+        begin = 0
+        catch = None
+        # catg information of the word parameter
+        while (len_text - begin) >= len_word:
+            if text[begin:begin+len_word] == word:
+                end = begin+len_word
+                while text[end] != "\n":
+                    end += 1
+                catch = text[begin+len_word:end]
+                break
+            begin += 1
+        # remove `:` and spaces
+        catch = catch.replace(":", "")
+        catch = catch.replace(" ", "")
+        return catch
+
+    def hamachi_inf(self):
         """
         Sort hamachi information
         """
-        inf = self.get_hamachi_inf()
-        
+        # TODO: avoid --> 'address': '25.103.11.9226209b1967b5c'
+        inf = self.__get_hamachi_inf()[0]
+        data = {}
+        parameters = (
+            "status",
+            "client id",
+            "address",
+            "nickname",
+        )
+        for p in parameters:
+            data[p] = self.__get_from_text(inf, p)
+        return data
 
 if __name__ == "__main__":
     #Install.install("linux", 64)
     mana = Mana()
     #mana.run_insall_sh()
     #mana.power_on_hamachid()
-    print(mana.get_hamachi_inf())
-    #status = mana.get_hamachi_inf()[0][111:123]
-    #print(status)
+    print(mana.hamachi_inf())
