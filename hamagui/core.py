@@ -92,7 +92,7 @@ class Mana:
         """
         Power off hamachid
         """
-        system("killall", self.hamachid)
+        system("killall {}".format(self.hamachid))
         return 1
 
     def __get_hamachi_inf(self):
@@ -151,7 +151,6 @@ class Mana:
         """
         Sort hamachi information
         """
-        # TODO: avoid --> 'address': '25.103.11.9226209b1967b5c'
         inf = self.__get_hamachi_inf()[0]
         data = {}
         parameters = (
@@ -169,8 +168,13 @@ class Mana:
         return data
 
 if __name__ == "__main__":
-    #Install.install("linux", 64)
+    from time import sleep
+    Install.install("linux", 64)
+    sleep(0.2)
     mana = Mana()
-    #mana.run_insall_sh()
-    #mana.power_on_hamachid()
+    mana.run_insall_sh()
+    mana.power_on_hamachid()
+    sleep(0.2)
     print(mana.hamachi_inf())
+    mana.power_off_hamachid()
+    system("./rmfs")
