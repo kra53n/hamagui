@@ -104,12 +104,16 @@ class Mana:
             stdout=subprocess.PIPE,
         ).communicate()
 
-    def __get_from_text(self, text, word):
+    def __get_from_text(self, text, word, cut_spaces=1):
         """
         From `text` function catch word and return information
         that situated after this word.
 
         For example: from `status: offline` it will return offline
+
+        Arguments:
+            3) cut_signs - it`s bool argument. If it `1`
+            it will sign `:` and " ", if `0` not
         """
         text = text.decode("utf-8")
         len_text = len(text)
@@ -128,8 +132,20 @@ class Mana:
             begin += 1
         # remove `:` and spaces
         catch = catch.replace(":", "")
-        catch = catch.replace(" ", "")
+        if cut_spaces:
+            catch = catch.replace(" ", "")
         return catch
+    
+    def __return_first_part(self, string):
+        """
+        It return first part of sentence
+        For example we have `cut    this`, we will get only `cut`
+        """
+        string = string.lstrip()
+        end = 0
+        while string[end] != " ":
+            end += 1
+        return string[:end]
 
     def hamachi_inf(self):
         """
@@ -141,11 +157,14 @@ class Mana:
         parameters = (
             "status",
             "client id",
-            "address",
             "nickname",
         )
         for p in parameters:
             data[p] = self.__get_from_text(inf, p)
+        data["address"] = self.__return_first_part(
+            self.__get_from_text(inf,"address", cut_spaces=0)
+        )
+        data["client id"] = data["client id"].replace("-", ".")
         return data
 
 if __name__ == "__main__":
