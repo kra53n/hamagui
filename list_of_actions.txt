@@ -1,6 +1,5 @@
 1. Installing from site to dir where finds script
 2. Run `install.sh`
 3. Run `hamachid`
-4. Set nicknam
-5. Set offline to online and online to offline
-6. Join to address of other user
+4. Set nickname
+5. Join to address of other user

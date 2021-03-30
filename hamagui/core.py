@@ -177,4 +177,4 @@ if __name__ == "__main__":
     sleep(0.2)
     print(mana.hamachi_inf())
     mana.power_off_hamachid()
-    system("./rmfs")
+    #system("./rmfs")
