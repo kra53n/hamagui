@@ -166,15 +166,42 @@ class Mana:
         )
         data["client id"] = data["client id"].replace("-", ".")
         return data
+    
+    def logged_in(self):
+        subprocess.run(["hamachi", "login"])
+    
+    def logged_off(self):
+        """
+        Go to offline mode
+        """
+        subprocess.run(["hamachi", "logoff"])
+    
+    def set_nickname(self, nickname):
+        """
+        To set nickname user must be in `logged in`
+        If nicknames are simular then return 0
+        """
+        # check user nickname
+        data = self.hamachi_inf()
+        if data["nickname"] == nickname:
+            return 0
+        if data["status"] != "logged in":
+            self.logged_in()
+        subprocess.run(["hamachi", "set-nick", nickname])
+    
+    def join_network(self, id):
+        subprocess.run(["hamachi", "join", id])
 
 if __name__ == "__main__":
     from time import sleep
-    Install.install("linux", 64)
-    sleep(0.2)
-    mana = Mana()
-    mana.run_insall_sh()
-    mana.power_on_hamachid()
-    sleep(0.2)
-    print(mana.hamachi_inf())
-    mana.power_off_hamachid()
+    #Install.install("linux", 64)
+    #sleep(0.2)
+    #mana = Mana()
+    #mana.logged_off()
+    #mana.set_nickname("kryakraykrya")
+    #mana.run_insall_sh()
+    #mana.power_on_hamachid()
+    #sleep(0.2)
+    #print(mana.hamachi_inf())
+    #mana.power_off_hamachid()
     #system("./rmfs")
