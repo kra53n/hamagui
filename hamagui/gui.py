@@ -11,8 +11,6 @@ from core import Install
 from core import get_os_information
 mana = Mana()
 
-# print(dir(Gtk.Switch()))
-
 
 class MainWindow(Gtk.Window):
     def __init__(self):
@@ -23,11 +21,8 @@ class MainWindow(Gtk.Window):
         self.add(grid)
 
         label = Gtk.Label(label="Status", expand=1)
-        self.label_status = Gtk.Label(
-            label=mana.hamachi_inf()["status"],
-            expand=1
-        )
-        self.button_status = Gtk.Button(label="Online", expand=1)
+        self.label_status = Gtk.Label(expand=1)
+        self.button_status = Gtk.Button(expand=1)
         grid.add(label)
         grid.attach(self.label_status, 1, 0, 1, 1)
         grid.attach(self.button_status, 2, 0, 1, 1)
@@ -60,12 +55,26 @@ class MainWindow(Gtk.Window):
         grid.attach(label, 0, 4, 1, 1)
         grid.attach(self.entry_join, 1, 4, 1, 1)
         grid.attach(self.button_join, 2, 4, 1, 1)
+
+        self.update()
+
+    def get_status(self):
+        status = mana.hamachi_inf()["status"]
+        if status == "offline":
+            return "offline", "online"
+        if status != "offline":
+            return "online", "offline"
     
     def update(self):
         """
         Update all possible elements of Gui
         """
-        pass
+        self.label_status.props.label = self.get_status()[0]
+        self.button_status.props.label = self.get_status()[1]
+        self.entry_nickname.props.placeholder_text = mana.hamachi_inf()["nickname"]
+        self.label_client_id.props.label = mana.hamachi_inf()["client id"]
+        self.label_address.props.label = mana.hamachi_inf()["address"]
+        print(mana.hamachi_inf()["list"])
 
 
 def main():

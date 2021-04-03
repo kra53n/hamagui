@@ -122,6 +122,12 @@ class Mana:
             stdout=subprocess.PIPE,
         ).communicate()
 
+    def __get_hamachi_list(self):
+        return subprocess.Popen(
+            ["hamachi", "list"],
+            stdout=subprocess.PIPE,
+        ).communicate()
+
     def __get_from_text(self, text, word, cut_spaces=1):
         """
         From `text` function catch word and return information
@@ -154,6 +160,27 @@ class Mana:
             catch = catch.replace(" ", "")
         return catch
     
+    # TODO: here I have problems
+    def __get_from_text_between_symbols(self, text, sym1, sym2):
+        """
+        Parse text from string between two symbols
+        """
+        inf = []
+        pos1, pos2 = 0, 0
+        text = text[0].decode("utf-8")
+        while len(text) != pos1:
+            while (text[pos1] != sym1) and (len(text)-1 > pos1):
+                pos1 += 1
+                print(len(text), pos1)
+            while (text[pos2] != sym2) and (len(text)-1 > pos2):
+                pos2 += 1
+            inf.append(text[pos1+1:pos2])
+            print(inf)
+            input()
+            pos1 += 1
+            pos2 += 1
+        return inf
+    
     def __return_first_part(self, string):
         """
         It return first part of sentence
@@ -183,6 +210,9 @@ class Mana:
             self.__get_from_text(inf,"address", cut_spaces=0)
         )
         data["client id"] = data["client id"].replace("-", ".")
+        data["list"] = self.__get_from_text_between_symbols(
+            self.__get_hamachi_list(), "[", "]"
+        )
         return data
     
     def logged_in(self):
