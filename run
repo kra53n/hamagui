@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# script run gui of hamagui
+# in future it will install and then run script
+# TODO: maybe I don`t need in this file
+
+
+# dir where situated gui.py
+dir=$HOME/Рабочий\ стол/hamagui/hamagui
+file=gui.py
+
+cd "$dir"
+sudo python $file
