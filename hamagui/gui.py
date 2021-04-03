@@ -3,7 +3,14 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
+from errors import (
+    OsError,
+    InstallError,
+)
+
 from core import Mana
+from core import Install
+from core import get_os_information
 mana = Mana()
 
 # print(dir(Gtk.Switch()))
@@ -56,15 +63,35 @@ class MainWindow(Gtk.Window):
         grid.attach(self.entry_join, 1, 4, 1, 1)
         grid.attach(self.button_join, 2, 4, 1, 1)
     
-    def update():
+    def update(self):
         """
         Update all possible elements of Gui
         """
         pass
 
 
-if __name__ == "__main__":
+def main():
+    if get_os_information()[0] != "linux":
+        OsError().run()
+        return 0
+
+    install = False
+    if not mana.check_hamachid(r"/home/kra53n/Рабочий стол/hamagui/hamagui"):
+        dialog = InstallError()
+        response = dialog.run()
+        if response == Gtk.ResponseType.OK:
+            install = True
+            dialog.destroy()
+        if response == Gtk.ResponseType.CANCEL:
+            return 0
+    if install:
+        Install()
+
     main_window = MainWindow()
     main_window.connect("destroy", Gtk.main_quit)
     main_window.show_all()
     Gtk.main()
+
+
+if __name__ == "__main__":
+    main()

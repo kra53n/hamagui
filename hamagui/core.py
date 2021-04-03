@@ -37,12 +37,16 @@ def get_os_information():
 
 
 class Install:
-    def download(os, bit):
+    def __init__(self):
+        os, bit = get_os_information()
+        self.install(os, bit)
+
+    def download(self, os, bit):
         url = URL_SITE_DL + OPTIONS[os][bit]["tgz"]
         r = requests.get(url, allow_redirects=True)
         open(OPTIONS[os][bit]["tgz"], "wb").write(r.content)
 
-    def move_files(from_dir, to_dir):
+    def move_files(self, from_dir, to_dir):
         """
         Recursivly remove all files
         """
@@ -50,15 +54,15 @@ class Install:
             for file in files:
                 rename(os.path.join(root, file), os.path.join(to_dir, file))
 
-    def extract(os, bit):
+    def extract(self, os, bit):
         dir_name = OPTIONS[os][bit]["tgz"]
         dir_path = getcwd() + "/" + dir_name[:-4]
         subprocess.run(["tar", "--extract", "-f", dir_name])
-        Install.move_files(dir_path, getcwd())
+        self.move_files(dir_path, getcwd())
 
-    def install(os, bit):
-        Install.download(os, bit)
-        Install.extract(os, bit)
+    def install(self, os, bit):
+        self.download(os, bit)
+        self.extract(os, bit)
         remove(OPTIONS[os][bit]["tgz"])
         rmdir(OPTIONS[os][bit]["tgz"][:-4])
 
@@ -71,6 +75,20 @@ class Mana:
         # hamachid - it`s main file of hamachi
         # Be careful with it beacause of unknowing of considering in this file
         self.hamachid = "hamachid"
+
+    def check_hamachid(self, path):
+        """
+        Check existing of hamachi
+        If exitst return 1 else return 0
+
+        Arguments:
+            1) path - path where situated hamachid
+        """
+        for root, dirs, files in walk(path):
+            if self.hamachid in files:
+                return 1
+            if self.hamachid not in files:
+                return 0
 
     def run_insall_sh(self):
         """
@@ -194,14 +212,15 @@ class Mana:
 
 if __name__ == "__main__":
     from time import sleep
-    Install.install("linux", 64)
+    #print(get_os_information())
+    #Install.install("linux", 64)
     #sleep(0.2)
     mana = Mana()
     #mana.logged_off()
     #mana.set_nickname("kryakraykrya")
     #mana.run_insall_sh()
     #mana.power_on_hamachid()
-    sleep(0.2)
-    print(mana.hamachi_inf())
+    #sleep(0.2)
+    #print(mana.hamachi_inf())
     #mana.power_off_hamachid()
     #system("./rmfs")
