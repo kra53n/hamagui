@@ -3,16 +3,12 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
-from errors import (
-    OsError,
-    InstallError,
-)
+from errors import OsError
+from errors import InstallError
 
-from core import (
-    Mana,
-    Install,
-    get_os_information,
-)
+from core import Mana
+from core import Install
+from core import get_os_information
 mana = Mana()
 
 # print(dir(Gtk.Switch()))
