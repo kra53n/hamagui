@@ -6,47 +6,52 @@ from gi.repository import Gtk
 from core import Mana
 mana = Mana()
 
+# print(dir(Gtk.Switch()))
+
 
 class MainWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="Hamagui")
         space_size = 12
 
-        self.box_status = Gtk.Box(spacing=space_size)
-        self.label_status = Gtk.Label(label="Status")
-        self.label_status_show = Gtk.Label(label="online")
-        self.button_status = Gtk.Button(label="offline")
+        grid = Gtk.Grid()
+        self.add(grid)
 
-        self.box_nickname = Gtk.Box(spacing=space_size)
-        self.label_nickname = Gtk.Label(label="Nickname")
-        self.entry_nickname = Gtk.Entry()
-        self.button_nickname = Gtk.Button()
+        label = Gtk.Label(label="Status", expand=1)
+        self.label_status = Gtk.Label(label="Offline", expand=1)
+        self.button_status = Gtk.Button(label="Online", expand=1)
+        grid.add(label)
+        grid.attach(self.label_status, 1, 0, 1, 1)
+        grid.attach(self.button_status, 2, 0, 1, 1)
 
-        self.box_client_id = Gtk.Box(spacing=space_size)
-        self.label_client_id = Gtk.Label(label="Client ID")
-        self.label_client_id_show = Gtk.Label()
-        self.button_client_id = Gtk.Button(label="Copy")
+        label = Gtk.Label(label="Nickname", expand=1)
+        self.entry_nickname = Gtk.Entry(placeholder_text="Krai53n", expand=1)
+        self.button_nickname = Gtk.Button(label="Apply", expand=1)
+        grid.attach(label, 0, 1, 1, 1)
+        grid.attach(self.entry_nickname, 1, 1, 1, 1)
+        grid.attach(self.button_nickname, 2, 1, 1, 1)
 
-        self.box_address = Gtk.Box(spacing=space_size)
-        self.label_address = Gtk.Label(label="Client ID")
-        self.label_address_show = Gtk.Label()
-        self.button_address = Gtk.Button()
-
-        self.box_to_join = Gtk.Box(spacing=space_size)
-        self.label_to_join = Gtk.Label(label="To join")
-        self.entry_to_join = Gtk.Button()
-        self.button_to_join = Gtk.Label(label="Join")
+        label = Gtk.Label(label="Client ID", expand=1)
+        self.label_client_id = Gtk.Label(label="234.234.234", expand=1)
+        self.button_client_id = Gtk.Button(label="Copy", expand=1)
+        grid.attach(label, 0, 2, 1, 1)
+        grid.attach(self.label_client_id, 1, 2, 1, 1)
+        grid.attach(self.button_client_id, 2, 2, 1, 1)
 
 
-        self.add(self.box_status)
-        self.box_status.pack_start(self.label_status, 1, 1, 0)
-        self.box_status.pack_start(self.label_status_show, 1, 1, 0)
-        self.box_status.pack_start(self.button_status, 1, 1, 0)
+        label = Gtk.Label(label="Address", expand=1)
+        self.label_address = Gtk.Label(label="234.234.45", expand=1)
+        self.button_address = Gtk.Button(label="Copy", expand=1)
+        grid.attach(label, 0, 3, 1, 1)
+        grid.attach(self.label_address, 1, 3, 1, 1)
+        grid.attach(self.button_address, 2, 3, 1, 1)
 
-        self.add(self.box_nickname)
-        self.box_status.pack_start(self.label_nickname, 1, 1, 0)
-        self.box_status.pack_start(self.entry_nickname, 1, 1, 0)
-        self.box_status.pack_start(self.button_nickname, 1, 1, 0)
+        label = Gtk.Label(label="To join", expand=1)
+        self.entry_join = Gtk.Entry(placeholder_text="kryakryakrya", expand=1)
+        self.button_join = Gtk.Button(label="Join", expand=1)
+        grid.attach(label, 0, 4, 1, 1)
+        grid.attach(self.entry_join, 1, 4, 1, 1)
+        grid.attach(self.button_join, 2, 4, 1, 1)
 
 
 if __name__ == "__main__":
