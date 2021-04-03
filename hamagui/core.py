@@ -194,14 +194,14 @@ class Mana:
 
 if __name__ == "__main__":
     from time import sleep
-    #Install.install("linux", 64)
+    Install.install("linux", 64)
     #sleep(0.2)
     mana = Mana()
     #mana.logged_off()
     #mana.set_nickname("kryakraykrya")
     #mana.run_insall_sh()
     #mana.power_on_hamachid()
-    #sleep(0.2)
+    sleep(0.2)
     print(mana.hamachi_inf())
     #mana.power_off_hamachid()
     #system("./rmfs")

@@ -18,7 +18,10 @@ class MainWindow(Gtk.Window):
         self.add(grid)
 
         label = Gtk.Label(label="Status", expand=1)
-        self.label_status = Gtk.Label(label="Offline", expand=1)
+        self.label_status = Gtk.Label(
+            label=mana.hamachi_inf()["status"],
+            expand=1
+        )
         self.button_status = Gtk.Button(label="Online", expand=1)
         grid.add(label)
         grid.attach(self.label_status, 1, 0, 1, 1)
@@ -52,6 +55,12 @@ class MainWindow(Gtk.Window):
         grid.attach(label, 0, 4, 1, 1)
         grid.attach(self.entry_join, 1, 4, 1, 1)
         grid.attach(self.button_join, 2, 4, 1, 1)
+    
+    def update():
+        """
+        Update all possible elements of Gui
+        """
+        pass
 
 
 if __name__ == "__main__":
