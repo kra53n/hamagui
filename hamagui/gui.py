@@ -1,8 +1,8 @@
-import getgit
 import gi
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
+from gi.repository import Gdk
 
 from errors import OsError
 from errors import InstallError
@@ -20,6 +20,8 @@ class MainWindow(Gtk.Window):
 
         grid = Gtk.Grid()
         self.add(grid)
+
+        self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
 
         label = Gtk.Label(label="Status", expand=1)
         self.label_status = Gtk.Label(expand=1)
@@ -49,6 +51,7 @@ class MainWindow(Gtk.Window):
         label = Gtk.Label(label="Address", expand=1)
         self.label_address = Gtk.Label(label="234.234.45", expand=1)
         self.button_address = Gtk.Button(label="Copy", expand=1)
+        self.button_address.connect("clicked", self.button_address_clicked)
         grid.attach(label, 0, 3, 1, 1)
         grid.attach(self.label_address, 1, 3, 1, 1)
         grid.attach(self.button_address, 2, 3, 1, 1)
@@ -56,6 +59,7 @@ class MainWindow(Gtk.Window):
         label = Gtk.Label(label="To join", expand=1)
         self.entry_join = Gtk.Entry(placeholder_text="kryakryakrya", expand=1)
         self.button_join = Gtk.Button(label="Join", expand=1)
+        self.button_join.connect("clicked", self.button_join_clicked)
         grid.attach(label, 0, 4, 1, 1)
         grid.attach(self.entry_join, 1, 4, 1, 1)
         grid.attach(self.button_join, 2, 4, 1, 1)
@@ -95,8 +99,17 @@ class MainWindow(Gtk.Window):
         self.update()
 
     def button_client_id_clicked(self, button):
-        # TODO: use here Gtk.Clipboard
-        # https://python-gtk-3-tutorial.readthedocs.io/en/latest/clipboard.html
+        self.clipboard.set_text(self.label_client_id.get_label(), -1)
+        self.update()
+
+    def button_address_clicked(self, button):
+        self.clipboard.set_text(self.label_address.get_label(), -1)
+        self.update()
+
+    def button_join_clicked(self, button):
+        text = self.entry_join.get_text()
+        if text:
+            mana.join_network(text)
         self.update()
 
 

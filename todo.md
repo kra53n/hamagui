@@ -1,12 +1,13 @@
 ## TODO:
-- [ ] complete status
-- [ ] complete nickname
-- [ ] complete client id
-- [ ] complete address
-- [ ] complete to join
+- [ ] formalize README.md
 
 
 ## COMPLETE:
+- [x] complete status
+- [x] complete nickname
+- [x] complete client id
+- [x] complete address
+- [x] complete to join
 - [x] make scretch of ui/ux
 - [x] make exception if user run script on the Windows
 - [x] undrestand how user can interact with cli of hamachi
