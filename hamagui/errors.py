@@ -28,9 +28,9 @@ class OsError(Gtk.Dialog):
 class InstallError(Gtk.Dialog):
     def __init__(self):
         Gtk.Dialog.__init__(
-                self,
-                title="InstallError",
-                flags=0,
+            self,
+            title="InstallError",
+            flags=0,
         )
         self.add_buttons(
             Gtk.STOCK_CANCEL,
