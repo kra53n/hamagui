@@ -74,7 +74,7 @@ class MainWindow(Gtk.Window):
         self.entry_nickname.props.placeholder_text = mana.hamachi_inf()["nickname"]
         self.label_client_id.props.label = mana.hamachi_inf()["client id"]
         self.label_address.props.label = mana.hamachi_inf()["address"]
-        print(mana.hamachi_inf()["list"])
+        self.entry_join.props.placeholder_text = mana.hamachi_inf()["list"][-1]
 
 
 def main():

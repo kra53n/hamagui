@@ -160,25 +160,20 @@ class Mana:
             catch = catch.replace(" ", "")
         return catch
     
-    # TODO: here I have problems
     def __get_from_text_between_symbols(self, text, sym1, sym2):
         """
         Parse text from string between two symbols
         """
+        pos = 0
         inf = []
-        pos1, pos2 = 0, 0
+        poss = []
         text = text[0].decode("utf-8")
-        while len(text) != pos1:
-            while (text[pos1] != sym1) and (len(text)-1 > pos1):
-                pos1 += 1
-                print(len(text), pos1)
-            while (text[pos2] != sym2) and (len(text)-1 > pos2):
-                pos2 += 1
-            inf.append(text[pos1+1:pos2])
-            print(inf)
-            input()
-            pos1 += 1
-            pos2 += 1
+        while len(text) > pos:
+            if (text[pos] == sym1) or (text[pos] == sym2):
+                poss.append(pos)
+            pos += 1
+        for i in range(0, len(poss), 2):
+            inf.append(text[poss[i]+1:poss[i+1]])
         return inf
     
     def __return_first_part(self, string):
