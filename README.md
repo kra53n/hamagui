@@ -3,7 +3,7 @@
 </h2>
 
 <div align="center">
-![window screenshot](screenshots/view.png)
+![Main window screenshot](screenshots/view.png)
 </div>
 
 <p align="center">
