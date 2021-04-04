@@ -16,7 +16,7 @@
 	Why it is exist?
 </h3>
 
-I have some problems when start [Hamachi](https://www.vpn.net). I have problems with other alternatives for Gnu/Linux too. Only Cli from [Hamachi](https://www.vpn.net) worked fine but process of using it a harder then just GUI apps. So, I decided write wrapper of Hamachi Cli.
+I have some problems when start [Hamachi](https://www.vpn.net) for Windows from Wine. I have problems with other alternatives for Gnu/Linux too. Only Cli from [Hamachi](https://www.vpn.net) worked fine but process of using it a harder then just GUI apps. So, I decided write wrapper of Hamachi Cli.
 
 <h3 align="center">
 	How to use it?
