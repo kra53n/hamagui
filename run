@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # script run gui of hamagui
 # in future it will install and then run script
@@ -6,8 +6,9 @@
 
 
 # dir where situated gui.py
-dir=$HOME/Рабочий\ стол/hamagui/hamagui
+dir=$(pwd)/hamagui
 file=gui.py
 
+echo $dir
 cd "$dir"
 sudo python $file

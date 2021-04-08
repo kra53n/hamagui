@@ -1,8 +1,12 @@
 ## TODO:
-- [ ] formalize README.md
+- [ ] make autodetecting of path(use run script sh script, and put path from
+pwd to gui.py that will give it core.py). run --> gui.py --> core.py
+- [ ] add to run delete option(that will run rmfs)
+
 
 
 ## COMPLETE:
+- [x] formalize README.md
 - [x] complete status
 - [x] complete nickname
 - [x] complete client id
