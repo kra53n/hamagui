@@ -234,18 +234,3 @@ class Mana:
     
     def join_network(self, id):
         subprocess.run(["hamachi", "join", id])
-
-if __name__ == "__main__":
-    from time import sleep
-    #print(get_os_information())
-    #Install.install("linux", 64)
-    #sleep(0.2)
-    mana = Mana()
-    #mana.logged_off()
-    #mana.set_nickname("kryakraykrya")
-    #mana.run_insall_sh()
-    #mana.power_on_hamachid()
-    #sleep(0.2)
-    #print(mana.hamachi_inf())
-    #mana.power_off_hamachid()
-    #system("./rmfs")
