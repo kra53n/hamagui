@@ -1,7 +1,7 @@
 ## TODO:
-- [ ] make autodetecting of path(use run script sh script, and put path from
-pwd to gui.py that will give it core.py). run --> gui.py --> core.py
-- [ ] add to run delete option(that will run rmfs)
+- [ ] add deleting of files to core.py(Mana)
+- [ ] add button to gui that will delete all files
+- [ ] add button to gui that will stop working of hamachid
 
 
 

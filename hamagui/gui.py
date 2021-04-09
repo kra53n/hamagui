@@ -4,6 +4,9 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 from gi.repository import Gdk
 
+from os import getcwd
+from time import sleep
+
 from errors import OsError
 from errors import InstallError
 
@@ -115,6 +118,11 @@ class MainWindow(Gtk.Window):
             mana.join_network(text)
         self.update()
 
+def run_main_window():
+    main_window = MainWindow()
+    main_window.connect("destroy", Gtk.main_quit)
+    main_window.show_all()
+    Gtk.main()
 
 def main():
     if get_os_information()[0] != "linux":
@@ -122,7 +130,7 @@ def main():
         return 0
 
     install = False
-    if not mana.check_hamachid(r"/home/kra53n/Рабочий стол/hamagui/hamagui"):
+    if not mana.check_hamachid(getcwd()):
         dialog = InstallError()
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
@@ -133,10 +141,13 @@ def main():
     if install:
         Install()
 
-    main_window = MainWindow()
-    main_window.connect("destroy", Gtk.main_quit)
-    main_window.show_all()
-    Gtk.main()
+    try:
+        run_main_window()
+    except AttributeError:
+        # if hamachid is not run
+        mana.power_on_hamachid()
+        sleep(0.1)
+        run_main_window()
 
 
 if __name__ == "__main__":

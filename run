@@ -2,13 +2,13 @@
 
 # script run gui of hamagui
 # in future it will install and then run script
-# TODO: maybe I don`t need in this file
 
 
 # dir where situated gui.py
 dir=$(pwd)/hamagui
 file=gui.py
+filepath=$dir/$file
 
-echo $dir
-cd "$dir"
-sudo python $file
+echo $filepath
+# cd "$dir"
+sudo python "$filepath"
