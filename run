@@ -8,5 +8,5 @@ dir=$(pwd)/hamagui
 file=gui.py
 filepath=$dir/$file
 
-echo $filepath
+
 sudo python "$filepath"
