@@ -88,6 +88,7 @@ class Mana:
             "README",
             "Release_notes.rtf",
             "uninstall.sh",
+            "dnsup",
         )
         [remove(file) for file in files]
 

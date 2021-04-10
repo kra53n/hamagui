@@ -1,6 +1,7 @@
 ## TODO:
 - [ ] add theme to gui
-
+- [ ] make new screenshot of main window
+- [ ] add Error - hamachid is not running
 
 
 ## COMPLETE:
