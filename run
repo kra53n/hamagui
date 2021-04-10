@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # script run gui of hamagui
-# in future it will install and then run script
 
 
 # dir where situated gui.py
