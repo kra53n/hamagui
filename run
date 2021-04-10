@@ -10,5 +10,4 @@ file=gui.py
 filepath=$dir/$file
 
 echo $filepath
-# cd "$dir"
 sudo python "$filepath"
