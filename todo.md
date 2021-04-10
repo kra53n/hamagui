@@ -1,11 +1,12 @@
 ## TODO:
-- [ ] add deleting of files to core.py(Mana)
-- [ ] add button to gui that will delete all files
-- [ ] add button to gui that will stop working of hamachid
+- [ ] add theme to gui
 
 
 
 ## COMPLETE:
+- [x] add deleting of files to core.py(Mana)
+- [x] add button to gui that will delete all files
+- [x] add button to gui that will stop working of hamachid
 - [x] formalize README.md
 - [x] complete status
 - [x] complete nickname

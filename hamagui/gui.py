@@ -10,6 +10,9 @@ from time import sleep
 from errors import OsError
 from errors import InstallError
 
+from warns import WarningKillHamachid
+from warns import WarningRemoveHamachiFiles
+
 from core import Mana
 from core import Install
 from core import get_os_information
@@ -67,6 +70,15 @@ class MainWindow(Gtk.Window):
         grid.attach(self.entry_join, 1, 4, 1, 1)
         grid.attach(self.button_join, 2, 4, 1, 1)
 
+        self.button_kill_hamachid = Gtk.Button(label="Kill hamachid", expand=1)
+        self.button_kill_hamachid.connect(
+            "clicked", self.button_kill_hamachid_clicked)
+        self.button_delete_files = Gtk.Button(label="Delete", expand=1)
+        self.button_delete_files.connect(
+            "clicked", self.button_delete_files_clicked)
+        grid.attach(self.button_kill_hamachid, 0, 5, 2, 1)
+        grid.attach(self.button_delete_files, 2, 5, 1, 1)
+
         self.update()
 
     def get_status(self):
@@ -117,6 +129,24 @@ class MainWindow(Gtk.Window):
         if text:
             mana.join_network(text)
         self.update()
+
+    def button_kill_hamachid_clicked(self, button):
+        dialog = WarningKillHamachid()
+        response = dialog.run()
+
+        if response == Gtk.ResponseType.OK:
+            mana.power_off_hamachid()
+
+        dialog.destroy()
+
+    def button_delete_files_clicked(self, button):
+        dialog = WarningRemoveHamachiFiles()
+        response = dialog.run()
+
+        if response == Gtk.ResponseType.OK:
+            mana.delete_files()
+
+        dialog.destroy()
 
 def run_main_window():
     main_window = MainWindow()

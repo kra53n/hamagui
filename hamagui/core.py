@@ -76,6 +76,21 @@ class Mana:
         # Be careful with it beacause of unknowing of considering in this file
         self.hamachid = "hamachid"
 
+    def delete_files(self):
+        # delete all files from pwd of hamachi
+        files = (
+            "CHANGES",
+            "dnsdown",
+            "hamachid",
+            "hamachi-init",
+            "install.sh",
+            "LICENSE",
+            "README",
+            "Release_notes.rtf",
+            "uninstall.sh",
+        )
+        [remove(file) for file in files]
+
     def check_hamachid(self, path):
         """
         Check existing of hamachi
