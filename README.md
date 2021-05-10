@@ -1,7 +1,7 @@
 <h2 align="center">
 	Hamagui is 
-	<a style="text-decoration:none" href="https://www.vpn.net">Hamachi cli</a>  
-	wrapper with gui interface.
+	<a style="text-decoration:none" href="https://www.vpn.net">Hamachi</a>  
+	cli wrapper with gui interface.
 </h2>
 
 <div align="center">
