@@ -5,9 +5,7 @@
 </h2>
 
 <div align="center">
-
-![Main window screenshot](screenshots/view.png)
-
+	<img width="78%" src="screenshots/view.png">
 </div>
 
 <p align="center">
