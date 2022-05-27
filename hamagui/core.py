@@ -1,13 +1,7 @@
 import requests
 import subprocess
 
-from os import remove
-from os import uname
-from os import walk
-from os import getcwd
-from os import rename
-from os import rmdir
-from os import system
+from os import remove, uname, walk, getcwd, rename, rmdir, system
 import os.path
 
 
@@ -90,7 +84,8 @@ class Mana:
             "uninstall.sh",
             "dnsup",
         )
-        [remove(file) for file in files]
+        for file in filse:
+            remove(file)
 
     def check_hamachid(self, path):
         """
