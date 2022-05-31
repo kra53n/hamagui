@@ -1,21 +1,11 @@
 import requests
 import subprocess
-
-from os import remove, uname, walk, getcwd, rename, rmdir, system
 import os.path
+from pathlib import Path
+from itertools import chain
+from os import remove, uname, walk, getcwd, rename, rmdir, system
 
-
-URL_SITE_DL = "https://www.vpn.net/installers/"
-OPTIONS = {
-    "linux": {
-        32: {
-            "tgz": "logmein-hamachi-2.1.0.203-x86.tgz",
-        },
-        64: {
-            "tgz": "logmein-hamachi-2.1.0.203-x64.tgz",
-        },
-    },
-}
+from constants import URL_SITE_DL, SYSTEM_BITS_OPTIONS, HAMACHI_FILES
 
 
 def get_os_information():
@@ -23,11 +13,8 @@ def get_os_information():
     Return os name and type of architecture
     """
     inf = list(uname())
-    if inf[4] == "x86_64":
-        inf[4] = 64
-    if inf[4] == "64":
-        inf[4] = 32
-    return inf[0].lower(), inf[4]
+    system_bits = {"x86_64": 64, "64": 32}
+    return inf[0].lower(), system_bits[inf[4]]
 
 
 class Install:
@@ -36,9 +23,9 @@ class Install:
         self.install(os, bit)
 
     def download(self, os, bit):
-        url = URL_SITE_DL + OPTIONS[os][bit]["tgz"]
+        url = URL_SITE_DL + SYSTEM_BITS_OPTIONS[os][bit]["tgz"]
         r = requests.get(url, allow_redirects=True)
-        open(OPTIONS[os][bit]["tgz"], "wb").write(r.content)
+        open(SYSTEM_BITS_OPTIONS[os][bit]["tgz"], "wb").write(r.content)
 
     def move_files(self, from_dir, to_dir):
         """
@@ -49,57 +36,41 @@ class Install:
                 rename(os.path.join(root, file), os.path.join(to_dir, file))
 
     def extract(self, os, bit):
-        dir_name = OPTIONS[os][bit]["tgz"]
-        dir_path = getcwd() + "/" + dir_name[:-4]
+        dir_name = SYSTEM_BITS_OPTIONS[os][bit]["tgz"]
+        dir_path = str(Path(getcwd()) / dir_name[:-4])
         subprocess.run(["tar", "--extract", "-f", dir_name])
         self.move_files(dir_path, getcwd())
 
     def install(self, os, bit):
         self.download(os, bit)
         self.extract(os, bit)
-        remove(OPTIONS[os][bit]["tgz"])
-        rmdir(OPTIONS[os][bit]["tgz"][:-4])
+        remove(SYSTEM_BITS_OPTIONS[os][bit]["tgz"])
+        rmdir(SYSTEM_BITS_OPTIONS[os][bit]["tgz"][:-4])
 
 
 class Mana:
     """
     Manipultaion with hamachi or just `Mana`
     """
-    def __init__(self):
+    def __init__(self, hamachi_files=HAMACHI_FILES):
         # hamachid - it`s main file of hamachi
         # Be careful with it beacause of unknowing of considering in this file
         self.hamachid = "hamachid"
+        self.hamachi_files = hamachi_files
 
     def delete_files(self):
-        # delete all files from pwd of hamachi
-        files = (
-            "CHANGES",
-            "dnsdown",
-            "hamachid",
-            "hamachi-init",
-            "install.sh",
-            "LICENSE",
-            "README",
-            "Release_notes.rtf",
-            "uninstall.sh",
-            "dnsup",
-        )
-        for file in filse:
+        """delete all files from pwd of hamachi"""
+        for file in self.hamachi_files:
             remove(file)
 
     def check_hamachid(self, path):
         """
-        Check existing of hamachi
-        If exitst return 1 else return 0
-
+        Check existing of hamachi.
+        If exist then return 1 else return 0.
         Arguments:
             1) path - path where situated hamachid
         """
-        for root, dirs, files in walk(path):
-            if self.hamachid in files:
-                return 1
-            if self.hamachid not in files:
-                return 0
+        return self.hamachid in chain.from_iterable(map(lambda x: x[2], walk(path)))
 
     def run_insall_sh(self):
         """
@@ -118,51 +89,39 @@ class Mana:
         return 1
     
     def power_off_hamachid(self):
-        """
-        Power off hamachid
-        """
+        """Power off hamachid"""
         system("killall {}".format(self.hamachid))
         return 1
 
     def __get_hamachi_inf(self):
-        """
-        Get information from `hamachi`
-        """
-        return subprocess.Popen(
-            ["hamachi"],
-            stdout=subprocess.PIPE,
-        ).communicate()
+        """Get information from `hamachi`"""
+        return subprocess.Popen(["hamachi"], stdout=subprocess.PIPE).communicate()
 
     def __get_hamachi_list(self):
-        return subprocess.Popen(
-            ["hamachi", "list"],
-            stdout=subprocess.PIPE,
-        ).communicate()
+        return subprocess.Popen(["hamachi", "list"], stdout=subprocess.PIPE).communicate()
 
     def __get_from_text(self, text, word, cut_spaces=1):
         """
         From `text` function catch word and return information
         that situated after this word.
-
-        For example: from `status: offline` it will return offline
-
+        For example: from `status: offline` it will return offline.
         Arguments:
             3) cut_signs - it`s bool argument. If it `1`
-            it will sign `:` and " ", if `0` not
+            it will sign `:` and " ", if `0` not.
         """
         text = text.decode("utf-8")
-        len_text = len(text)
-        len_word = len(word)
+        text_len = len(text)
+        word_len = len(word)
         # from what place begin reading
         begin = 0
         catch = None
         # catg information of the word parameter
-        while (len_text - begin) >= len_word:
-            if text[begin:begin+len_word] == word:
-                end = begin+len_word
+        while (text_len - begin) >= word_len:
+            if text[begin:begin+word_len] == word:
+                end = begin+word_len
                 while text[end] != "\n":
                     end += 1
-                catch = text[begin+len_word:end]
+                catch = text[begin+word_len:end]
                 break
             begin += 1
         # remove `:` and spaces
@@ -180,7 +139,7 @@ class Mana:
         poss = []
         text = text[0].decode("utf-8")
         while len(text) > pos:
-            if (text[pos] == sym1) or (text[pos] == sym2):
+            if text[pos] == sym1 or text[pos] == sym2:
                 poss.append(pos)
             pos += 1
         for i in range(0, len(poss), 2):
@@ -189,14 +148,10 @@ class Mana:
     
     def __return_first_part(self, string):
         """
-        It return first part of sentence
-        For example we have `cut    this`, we will get only `cut`
+        It returns first part of sentence
+        For example we have `  cut    this`, we will get only `cut`
         """
-        string = string.lstrip()
-        end = 0
-        while string[end] != " ":
-            end += 1
-        return string[:end]
+        return string[:string.index(" ")]
 
     def hamachi_inf(self):
         """
@@ -212,8 +167,9 @@ class Mana:
 
         for p in parameters:
             data[p] = self.__get_from_text(inf, p)
+
         data["address"] = self.__return_first_part(
-            self.__get_from_text(inf,"address", cut_spaces=0)
+            self.__get_from_text(inf, "address", cut_spaces=0)
         )
         data["client id"] = data["client id"].replace("-", ".")
         data["list"] = self.__get_from_text_between_symbols(

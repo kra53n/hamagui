@@ -83,11 +83,9 @@ class MainWindow(Gtk.Window):
 
     def get_status(self):
         status = mana.hamachi_inf()["status"]
-        if status == "offline":
-            return "offline", "online"
-        if status != "offline":
-            return "online", "offline"
-    
+        options = ["online", "offline"]
+        return options[::-1] if status == "offline" else options
+
     def update(self):
         """
         Update all possible elements of Gui
@@ -104,10 +102,8 @@ class MainWindow(Gtk.Window):
 
     def button_status_clicked(self, button):
         label = self.label_status.get_label()
-        if label == "online":
-            mana.logged_off()
-        if label == "offline":
-            mana.logged_in()
+        switch = {label == "online": mana.logged_off, label == "offline": mana.logged_in}
+        switch.get(True)()
         self.update()
 
     def button_nickname_clicked(self, button):
@@ -159,17 +155,14 @@ def main():
         OsError().run()
         return 0
 
-    install = False
     if not mana.check_hamachid(getcwd()):
         dialog = InstallError()
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
-            install = True
             dialog.destroy()
+            Install()
         if response == Gtk.ResponseType.CANCEL:
             return 0
-    if install:
-        Install()
 
     try:
         run_main_window()
